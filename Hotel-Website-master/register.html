@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Registration</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" media="screen and (max-width:768px)"href="./css/mobile.css">
+   <header>
+        <nav id="navbar">
+            <div class="container">
+                <h1 class="logo"><a href="index.html"><span class="text-primary">Dubai</span> Tower</a></h1>
+                <ul>
+                    <li ><a href="index.html">Home</a></li>
+                    <li><a  href="About.html">About</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+					<li><a  class="current" href="register.html">Book a Room</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+  <style>
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      color: black;
+      margin: 0;
+    }  
+	
+	form {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color:	#c0c0c0;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+      padding: 5px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: sandbox;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    h2 {
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+	  background-color: #c0c0c0;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+  </style>
+  <script>
+    var students = []; // Array to store registered students
+
+    function registerStudent() {
+      // Get form inputs
+      var studentName = document.getElementById('name').value;
+      var cnic = document.getElementById('cnic').value;
+      var roomNumber = document.getElementById('room').value;
+      var address = document.getElementById('address').value;
+
+      // Create student object
+      var student = {
+        name: studentName,
+        cnic: cnic,
+        room: roomNumber,
+        address: address
+      };
+
+      // Add student to the array
+      students.push(student);
+
+      // Clear form inputs
+      document.getElementById('name').value = '';
+      document.getElementById('cnic').value = '';
+      document.getElementById('room').value = '';
+      document.getElementById('address').value = '';
+
+      // Show success message
+      alert('Student registered successfully!');
+    }
+
+    function displayStudents() {
+      var display = document.getElementById('display');
+
+      // Clear the display
+      display.innerHTML = '';
+
+      // Check if there are registered students
+      if (students.length === 0) {
+        display.innerHTML = 'No students registered yet.';
+        return;
+      }
+
+      // Create a table to display students
+      var table = document.createElement('table');
+      table.classList.add('student-table');
+
+      // Create table header
+      var tableHeader = document.createElement('tr');
+      var headers = ['Name', 'CNIC', 'Room Number', 'Address'];
+
+      for (var i = 0; i < headers.length; i++) {
+        var th = document.createElement('th');
+        th.textContent = headers[i];
+        tableHeader.appendChild(th);
+      }
+
+      table.appendChild(tableHeader);
+
+      // Create table rows for each student
+      for (var j = 0; j < students.length; j++) {
+        var studentRow = document.createElement('tr');
+        var studentData = [
+          students[j].name,
+          students[j].cnic,
+          students[j].room,
+          students[j].address
+        ];
+
+        for (var k = 0; k < studentData.length; k++) {
+          var td = document.createElement('td');
+          td.textContent = studentData[k];
+          studentRow.appendChild(td);
+        }
+
+        table.appendChild(studentRow);
+      }
+
+      // Append the table to the display
+      display.appendChild(table);
+    }
+  </script>
+</head>
+<body>
+  <h1>Student Registration</h1>
+  <div>
+    <form>
+      <label for="name">Student Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="cnic">CNIC:</label>
+      <input type="text" id="cnic" required>
+
+      <label for="room">Room Number:</label>
+      <input type="text" id="room" required>
+
+      <label for="address">Address:</label>
+      <textarea id="address" required></textarea>
+
+      <button type="button" onclick="registerStudent()">Register</button>
+      <button type="button" onclick="displayStudents()">Display</button>
+    </form>
+
+    <h2>Registered Students:</h2>
+    <div id="display"></div>
+  </div>
+</body>
+</html>
